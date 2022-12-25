@@ -1,0 +1,115 @@
+
+* {
+    font-family:FiraCode Nerd Font;
+    font-size:14px;
+    font-weight:500;
+}
+#waybar {
+    background:rgba(26,27,38,0.9);
+    transition-property:background;
+    transition-duration:0.5s;
+    border-radius:8px;
+}
+#waybar.hidden {
+    opacity:0.2;
+}
+#window,#workspaces {
+    border-radius:8px;
+    /* border:2px solid rgba(122,162,247,0.9);
+    */
+  background:rgb(41,46,66);
+}
+#workspaces button {
+    padding:0 5px;
+    border-radius:8px;
+    background:transparent;
+    color:rgb(192,202,245);
+    border:none;
+    transition:none;
+}
+#workspaces button:hover {
+    background:rgb(51,56,76);
+    transition:none;
+    box-shadow:inherit;
+    text-shadow:inherit;
+}
+#workspaces button.active {
+    color:rgb(122,162,247);
+}
+#workspaces button.urgent {
+    background:#eb4d4b;
+}
+#clock,#battery,#cpu,#memory,#disk,#temperature,#backlight,#network,#pulseaudio,#custom-media,#tray,#mode,#idle_inhibitor,#mpd,#bluetooth,#custom-hyprPicker,#custom-power-menu,#custom-launcher,#custom-weather.severe,#custom-weather.sunnyDay,#custom-weather.clearNight,#custom-weather.cloudyFoggyDay,#custom-weather.cloudyFoggyNight,#custom-weather.rainyDay,#custom-weather.rainyNight,#custom-weather.showyIcyDay,#custom-weather.snowyIcyNight,#custom-weather.default {
+    padding:0 10px;
+    border-radius:8px;
+    background:rgb(41,46,66);
+    /* border:2px solid rgba(122,162,247,0.9);
+    */
+  color:rgb(192,202,245);
+}
+#cpu {
+    color:rgb(247,118,142);
+}
+#memory {
+    color:rgb(224,175,104);
+}
+#custom-power-menu {
+    padding:0 5px 0 3px;
+}
+#custom-launcher {
+    padding:0 5px 0 3px;
+}
+.modules-left > widget:first-child > #workspaces {
+    margin-left:0;
+}
+.modules-right > widget:last-child > #workspaces {
+    margin-right:0;
+}
+#idle_inhibitor {
+    color:rgb(112,125,157);
+    padding:0 14px 0 10px;
+}
+#pulseaudio {
+    color:rgb(122,162,247);
+}
+#bluetooth {
+    color:rgb(125,207,255);
+}
+#bluetooth.disconnected {
+    color:rgb(247,118,142);
+}
+#network {
+    color:rgb(158,206,106);
+}
+#network.disconnected {
+    color:rgb(247,118,142);
+}
+#backlight {
+    color:rgb(187,154,247);
+}
+#battery {
+    color:rgb(192,202,245);
+}
+#clock {
+    color:rgb(192,202,245);
+}
+@keyframes blink {
+    to {
+    background:rgba(41,46,66,0.5);
+    color:rgb(192,202,245);
+}
+}#battery.critical:not(.charging) {
+    color:rgb(247,118,142);
+    animation-name:blink;
+    animation-duration:0.5s;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+    animation-direction:alternate;
+}
+#tray > .passive {
+    -gtk-icon-effect:dim;
+}
+#tray > .needs-attention {
+    -gtk-icon-effect:highlight;
+    background:#eb4d4b;
+}
