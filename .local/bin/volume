@@ -1,0 +1,12 @@
+#!/bin/bash
+
+command=$1
+id="@DEFAULT_AUDIO_SINK@"
+
+if [[ "$command" = "up" ]]; then
+    wpctl get-volume $id | grep -v "MUTED" && wpctl set-volume $id 5%+ -l 1
+elif [[ "$command" = "down" ]]; then
+    wpctl get-volume $id | grep -v "MUTED" && wpctl set-volume $id 5%-
+elif [[ "$command" = "mute" ]]; then
+    wpctl set-mute $id toggle
+fi
