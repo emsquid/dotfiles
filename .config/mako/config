@@ -1,0 +1,30 @@
+layer=overlay
+markup=1
+
+font=FiraCode Nerd Font 10
+text-color=#c0caf5
+background-color=#1a1b26
+
+width=300
+height=110
+padding=10
+
+border-size=2
+border-color=#e0af68
+progress-color=over #e0af68
+border-radius=8
+
+default-timeout=5000
+
+[urgency=low]
+border-color=#9ece6a
+
+[urgency=normal]
+border-color=#e0af68
+
+[urgency=high]
+border-color=#f7768e
+default-timeout=0
+
+[mode=do-not-disturb]
+invisible=1

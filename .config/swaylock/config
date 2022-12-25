@@ -1,0 +1,24 @@
+image=~/.config/wallpapers/wallpaper.png
+ignore-empty-password
+clock
+indicator
+indicator-radius=100
+indicator-caps-lock
+font='FiraCode Nerd Font'
+font-size=30
+key-hl-color=9ece6a
+bs-hl-color=f7768e
+text-color=c0caf5
+text-clear-color=9ece6a
+text-ver-color=a9b1d6
+text-wrong-color=f7768e
+inside-color=1a1b26
+inside-clear-color=1a1b26
+inside-ver-color=1a1b26
+inside-wrong-color=1a1b26
+ring-color=7aa2f7
+ring-clear-color=9ece6a
+ring-ver-color=a9b1d6
+ring-wrong-color=f7768e
+effect-blur=5x2
+fade-in=0.4
