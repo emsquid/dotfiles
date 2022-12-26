@@ -60,6 +60,7 @@ return require('packer').startup(function(use)
     use { 'echasnovski/mini.nvim' } --mini bundle
 
     -- [[ Test ]]
+    use { 'elkowar/yuck.vim' }
 
     if packer_bootstrap then
         require('packer').sync()
