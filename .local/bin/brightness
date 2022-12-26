@@ -1,0 +1,38 @@
+#!/bin/sh
+
+command=$1
+
+# change brightness
+if [ "$command" = "up" ]; then
+    brillo -A 5
+elif [ "$command" = "down" ]; then
+    brillo -U 5
+else
+    brillo -S "$command"
+fi
+
+# log it
+logdir="$HOME/.local/state/var/"
+logfile="$logdir/brightness.log"
+brightness=$(printf "%.0f" "$(brillo)")
+
+if [ "$brightness" -gt 84 ]; then
+    icon=" "
+elif [ "$brightness" -gt 70 ]; then
+    icon=" "
+elif [ "$brightness" -gt 56 ]; then
+    icon=" "
+elif [ "$brightness" -gt 42 ]; then
+    icon=" "
+elif [ "$brightness" -gt 28 ]; then
+    icon=" "
+elif [ "$brightness" -gt 14 ]; then
+    icon=" "
+else
+    icon=" "
+fi
+
+mkdir -p "$logdir"
+tail -1 "$logfile" > "$logfile"
+
+echo "{\"icon\": \"$icon\", \"brightness\": $brightness}" >> "$logfile"
