@@ -1,0 +1,38 @@
+Description = "Tokyonight"
+
+Default = { Colour="#c0caf5" }
+Canvas = { Colour="#1a1b26" }
+Number = { Colour="#ff966c" }
+Escape = { Colour="#bb9af7" }
+String = { Colour="#9ece6a" }
+BlockComment = { Colour="#7a88cf" }
+PreProcessor = { Colour="#7dcfff" }
+LineNum = { Colour="#3b4261" }
+StringPreProc = String
+LineComment   = BlockComment
+Operator      = { Colour="#89ddff" }
+Interpolation = { Colour="#bb9af7" }
+
+Keywords = {
+  { Colour="#7dcfff" },
+  { Colour="#2ac3de" },
+  { Colour="#9ece6a" },
+  { Colour="#bb9af7" },
+  { Colour= "#4fd6be" },
+  { Colour= "#ff757f" },
+}
+
+-- new LSP based elements:
+SemanticTokenTypes  = {
+  { Type = 'keyword', Style = Keywords[1] },
+  { Type = 'type', Style = Keywords[2] },
+  { Type = 'function', Style = Keywords[4] },
+  { Type = 'method', Style = Keywords[4] },
+  { Type = 'class', Style =  Keywords[1] },
+  { Type = 'struct', Style = Keywords[2] },
+  { Type = 'parameter', Style = Keywords[6] },
+  { Type = 'variable', Style = Keywords[5] },
+  { Type = 'number', Style = Number },
+  { Type = 'regexp', Style = String },
+  { Type = 'operator', Style = Operator },
+}
