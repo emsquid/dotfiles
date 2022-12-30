@@ -1,0 +1,54 @@
+#!/bin/bash
+
+command=$1
+id="@DEFAULT_AUDIO_SINK@"
+
+# change volume
+if [ "$command" = "up" ]; then
+    wpctl get-volume $id | grep -v "MUTED" && wpctl set-volume $id 5%+ -l 1
+elif [ "$command" = "down" ]; then
+    wpctl get-volume $id | grep -v "MUTED" && wpctl set-volume $id 5%-
+elif [ "$command" = "set" ]; then
+    wpctl set-volume $id | grep -v "MUTED" && wpctl set-volume $id "$2" 
+elif [ "$command" = "mute" ]; then
+    wpctl set-mute $id toggle
+fi
+
+wpctl_output=$(wpctl get-volume $id) 
+volume=$(echo "$wpctl_output" | cut -d ' ' -f 2)
+
+if [ "$(echo "$volume" | grep "^0")" != "" ]; then
+    printf -v volume %.0f "$(echo "$volume" | cut -d '.' -f 2)"
+else
+    volume=100
+fi
+
+# notify
+notify-send "Volume" "$wpctl_output"
+
+# state it for eww
+logdir="$HOME/.config/eww/states"
+logfile="$logdir/volume.state"
+
+mkdir -p "$logdir"
+touch "$logfile"
+
+if echo "$wpctl_output" | grep "MUTED"; then
+    icon="婢" 
+elif [ "$volume" -gt 50 ]; then
+    icon="墳"
+elif [ "$volume" -gt 20 ]; then
+    icon="奔"
+else
+    icon="奄"
+fi
+
+if [ "$(wc -l "$logfile" | cut -d ' ' -f 1)" -ge 1000 ]; then
+    tail -1 "$logfile" > "$logfile"
+fi
+
+if echo "$wpctl_output" | grep "MUTED"; then
+    echo "{\"icon\": \"$icon \"}" >> "$logfile"
+else
+    echo "{\"icon\": \"$icon \", \"volume\": $volume}" >> "$logfile"
+fi

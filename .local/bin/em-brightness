@@ -1,0 +1,55 @@
+#!/bin/bash
+
+command=$1
+device="/sys/class/backlight/intel_backlight"
+
+# change brightness
+max=$(cat "$device/max_brightness")
+brightness=$(cat "$device/brightness")
+
+if [ "$command" = "up" ]; then
+    brightness=$((brightness * 100 / max + 5))
+elif [ "$command" = "down" ]; then
+    brightness=$((brightness * 100 / max - 5))
+elif [ "$command" = "set" ]; then
+    brightness=$2
+fi
+
+brightness=$((brightness > 100 ? 100 : brightness < 0 ? 0 : brightness ))
+echo "$((brightness * max / 100))" > "$device/brightness"
+
+# notify
+notify-send "Brightness" "$brightness"
+
+# state it for eww
+logdir="$HOME/.config/eww/states"
+logfile="$logdir/brightness.state"
+
+mkdir -p "$logdir"
+touch "$logfile"
+
+if [ "$brightness" -gt 90 ]; then
+    icon=" "
+elif [ "$brightness" -gt 78 ]; then
+    icon=" "
+elif [ "$brightness" -gt 68 ]; then
+    icon=" "
+elif [ "$brightness" -gt 56 ]; then
+    icon=" "
+elif [ "$brightness" -gt 46 ]; then
+    icon=" "
+elif [ "$brightness" -gt 34 ]; then
+    icon=" "
+elif [ "$brightness" -gt 24 ]; then
+    icon=" "
+elif [ "$brightness" -gt 12 ]; then
+    icon=" "
+else
+    icon=" "
+fi
+
+if [ "$(wc -l "$logfile" | cut -d ' ' -f 1)" -ge 1000 ]; then
+    tail -1 "$logfile" > "$logfile"
+fi
+
+echo "{\"icon\": \"$icon\", \"brightness\": $brightness}" >> "$logfile"

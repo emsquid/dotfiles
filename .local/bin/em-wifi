@@ -1,0 +1,74 @@
+#!/bin/sh
+
+logdir="$HOME/.config/eww/states"
+logfile="$logdir/wifi.state"
+previous_state="Unavailable"
+previous_ssid=""
+
+mkdir -p "$logdir"
+touch "$logfile"
+
+get_state() {
+    case $situation in
+        *disconnected*)
+            echo "Disconnected"
+            ;;
+        *connecting*)
+            echo "Connecting"
+            ;;
+        *connected*)
+            echo "Connected"
+            ;;
+        *)
+            echo "Unavailable"
+            ;;
+    esac
+}
+
+get_icon() {
+    if [ "$(echo "$state" | grep "Connected")" != "" ]; then
+        echo "直 "
+    else
+        echo "睊 "
+    fi
+}
+
+get_ssid() {
+    case $state in
+        *Connected*)
+            nmcli -t -f active,ssid dev wifi | grep ^yes | cut -d : -f 2
+            ;;
+        *)
+            echo ""
+            ;;
+    esac
+}
+
+while true; do
+    situation=$(nmcli | grep "^wlp")
+
+    state=$(get_state)
+    icon=$(get_icon)
+    ssid=$(get_ssid)
+
+    # notify
+    if [ "$state" != "$previous_state" ]; then
+        if [ "$state" = "Connected" ]; then
+            notify-send "Wi-Fi" "Connected to '$ssid'"
+        elif { [ "$state" = "Disconnected" ] || [ "$state" = "Unavailable" ]; } && [ "$previous_state" = "Connected" ]; then
+            notify-send "Wi-Fi" "Disconnected from '$previous_ssid'"
+        fi
+    fi
+
+    previous_state="$state"
+    previous_ssid="$ssid"
+
+    # state it for eww
+    if [ "$(wc -l "$logfile" | cut -d ' ' -f 1)" -ge 1000 ]; then
+        tail -1 "$logfile" > "$logfile"
+    fi
+
+    echo "{\"state\": \"$state\", \"icon\": \"$icon\", \"ssid\": \"$ssid\"}" >> "$logfile"
+
+    sleep 2;
+done

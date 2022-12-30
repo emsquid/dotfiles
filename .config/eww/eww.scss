@@ -1,0 +1,241 @@
+// Variable Color's
+$background: #1a1b26;
+$foreground: #c0caf5;
+
+$background-alternate: #292e42;
+$background-hover: #3c4155;
+
+$black: #24283b;
+$gray: #64709b;
+$red: #f7768e;
+$green: #9ece6a;
+$yellow: #e0af68;
+$blue: #7aa2f7;
+$magenta: #bb9af7;
+$cyan: #7dcfff;
+$white: $foreground;
+
+* {
+    all: unset;
+    font-family: FiraCode Nerd Font, FiraCode;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.bar {
+    background-color: $background;
+    color: $foreground;
+    opacity: 0.9;
+    border-radius: 8px;
+}
+
+// LEFT
+.launcher button, .file-manager button, .workspaces, .weather {
+    border-radius: 8px;
+    background-color: $background-alternate;
+}
+
+.launcher button {
+    color: $blue;
+    padding: 0 10px;
+}
+
+.file-manager button {
+    color: $cyan;
+    padding: 0 12px 0 8px;
+}
+
+.workspaces button {
+    background-color: $background-alternate;
+    padding: 0 7px;
+}
+
+.workspaces button.n-1 {
+    border-radius: 8px 0 0 8px;
+}
+
+.workspaces button.n-5 {
+    border-radius: 0 8px 8px 0;
+}
+
+.workspaces button.empty {
+    color: $gray;
+}
+
+.workspaces button.active, .workspaces button:hover {
+    background-color: $background-hover;
+}
+
+// RIGHT
+.power-menu, .clock, .battery, .wifi, .brightness, .volume {
+    border-radius: 8px;
+    background-color: $background-alternate;
+}
+
+.clock {
+    padding: 0 0 0 8px;
+}
+
+.clock-icon {
+    color: $red;
+    padding: 0 2px 0 8px;
+}
+
+.battery {
+    color: $magenta;
+    padding: 0 10px 0 11px;
+}
+
+.battery.Not-charging {
+    padding: 0 6px 0 11px;
+}
+
+@keyframes blink {
+    to {
+        background-color: rgba(247, 118, 131, 0.4);
+    }
+}
+
+.battery.Critical {
+    color: $red;
+    animation: blink 1.5s linear infinite alternate;
+}
+
+.wifi {
+    color: $blue;
+    padding: 0 4px 0 9px;
+}
+
+.brightness {
+    color: $cyan;
+    padding: 0 3px 0 10px;
+}
+
+.volume {
+    color: $green;
+    padding: 0 3px 0 11px;
+}
+
+.weather {
+    color: $yellow;
+    padding: 0 5px 0 8px;
+}
+
+.weather.null {
+    color: transparent;
+    background-color: transparent;
+}
+
+.weather.sunnyDay {
+    padding: 0 5px 0 8px;
+}
+
+.weather.clearNight {
+    padding: 0 3px 0 10px;
+}
+
+.weather.cloudyFoggyDay {
+    padding: 0 0 0 6px;
+}
+
+.weather.cloudyFoggyNight, .weather.rainyDay {
+    padding: 0 7px;
+}
+
+.weather.rainyNight, .weather.snowyIcyNight {
+    padding: 0 5.5px 0 8px;
+}
+
+.weather.snowyIcyDay {
+    padding: 0 8px;
+}
+
+.weather.severe {
+    padding: 0 2px 0 10px;
+}
+
+.time-reveal, .wifi-reveal, .battery-reveal, .weather-reveal {
+    color: $foreground;
+    margin-right: 10px; 
+}
+ 
+// POWER MENU
+.power-menu {
+    padding: 0;
+}
+
+.power-menu button:hover {
+    background: $background-hover;
+}
+
+.power-button {
+    color: $blue;
+    padding: 0 4px 0 9px;
+    border-radius: 0 8px 8px 0;
+}
+
+.reboot-button {
+    padding: 0 2px 0 10px;
+}
+
+.logout-button {
+    padding: 0 2px 0 10px;
+}
+
+.suspend-button {
+    padding: 0 4px 0 8px;
+}
+
+.lock-button {
+    padding: 0 2px 0 10px;
+    border-radius: 8px 0 0 8px;
+}
+
+scale trough {
+    background-color: $background-hover;
+    border-radius: 10px;
+    min-height: 3px;
+    min-width: 50px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+scale trough highlight {
+    background-color: $foreground;
+    border-radius: 10px;
+}
+
+// CALENDAR
+.calendar-container {
+    background-color: $background;
+    border-radius: 8px;
+    border: 2px solid $blue;
+    padding: 10px 8px 0 8px;
+    opacity: 0.9;
+}
+
+calendar {
+    padding: 5px;
+}
+
+calendar:selected {
+    color: $blue;
+}
+
+calendar.header {
+    color: $red;
+    font-weight: bold;
+}
+
+calendar.button {
+    color: $foreground;
+}
+
+calendar.highlight {
+    color: $magenta;
+    font-weight: bold;
+}
+
+calendar:indeterminate {
+    color: $background-hover;
+}

@@ -1,0 +1,52 @@
+#!/bin/sh
+
+bat=/sys/class/power_supply/BAT0/
+logdir="$HOME/.config/eww/states"
+logfile="$logdir/battery.state"
+notif_sent=false
+
+mkdir -p "$logdir"
+touch "$logfile"
+
+icon() {
+    if [ "$status" = "Charging" ]; then
+        echo " "
+    elif [ "$status" = "Not charging" ]; then
+        echo " "
+    elif [ "$capacity" -gt 85 ]; then
+        echo " "
+    elif [ "$capacity" -gt 60 ]; then
+        echo " "
+    elif [ "$capacity" -gt 40 ]; then
+        echo " "
+    elif [ "$capacity" -gt 15 ]; then
+        echo " "
+    else
+        echo " "
+    fi
+}
+
+while true; do
+    capacity="$(cat "$bat/capacity")"
+    status="$(cat "$bat/status")"
+
+    # send notification
+    if [ "$capacity" -gt 10 ] || [ "$status" = "Charging" ]; then
+        notif_sent=false
+    else
+        if ! $notif_sent; then
+            notify-send -u critical "Battery Very Low" "Connect charger"
+            notif_sent=true
+        fi
+        status="Critical"
+    fi 
+
+    # state it for eww
+    if [ "$(wc -l "$logfile" | cut -d ' ' -f 1)" -ge 1000 ]; then
+        tail -1 "$logfile" > "$logfile"
+    fi
+
+    echo "{\"icon\": \"$(icon)\", \"capacity\": $capacity, \"status\": \"$status\"}" >> "$logfile"
+
+    sleep 1;
+done

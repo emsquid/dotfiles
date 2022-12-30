@@ -1,0 +1,165 @@
+; UTILS
+(defwidget revealer-on-hover [var varname]
+  (eventbox :onhover "${EWW_CMD} update ${varname}=true" 
+            :onhoverlost "${EWW_CMD} update ${varname}=false"
+    (box :space-evenly false
+      (revealer :reveal var
+        :transition "slideright"
+        :duration "300ms"
+        (children :nth 0))
+      (children :nth 1))))
+
+
+; LEFT PART
+; LAUNCHER
+(defwidget launcher []
+  (box :class "launcher"
+    (button :onclick "scripts/exec.sh rofi -show drun" "")))
+
+; FILE MANAGER
+ (defwidget file_manager []
+  (box :class "file-manager"
+    (button :onclick "scripts/exec.sh kitty -T ranger -e ranger" "")))
+ 
+; WORKSPACES
+(deflisten workspaces-json :initial "[]" "tail -F states/workspaces.state")
+(defvar workspace_icons '{
+          "1": "ー",
+          "2": "二",
+          "3": "三",
+          "4": "四",
+          "5": "五",
+          "6": "六",
+          "7": "七",
+          "8": "八",
+          "9": "九",
+          "10": "十"
+      }')
+
+(defwidget workspaces []
+    (box :class "workspaces"
+      (for workspace in workspaces-json
+        (button :onclick "hyprctl dispatch workspace ${workspace.id}"
+          :class "n-${workspace.id} ${workspace.active ? "active" : ""} ${workspace.windows > 0 || workspace.active ? "occupied" : "empty"}" 
+          {workspace_icons[workspace.id]}))
+      ))
+
+(defwidget left []
+  (box :class "left" :halign "start" :spacing 5 :space-evenly false
+    (launcher)
+    (file_manager)
+    (workspaces)))
+
+; CENTER PART
+(defwidget center []
+  "")
+
+; RIGHT PART
+; POWER
+(defvar reveal-power-menu false)
+(defvar close-power-menu "eww update reveal-power-menu=false")
+
+(defwidget power-menu []
+  (box :class "power-menu"
+    (revealer-on-hover :var reveal-power-menu :varname "reveal-power-menu" :icon "襤"
+      (box 
+        (button :class "lock-button" :onclick "${close-power-menu} && lock &" " ")
+        (button :class "suspend-button" :onclick "${close-power-menu} && systemctl suspend &" "鈴 ")
+        (button :class "logout-button" :onclick "hyprctl dispatch exit 0" " ")
+        (button :class "reboot-button" :onclick "notify-send 'Reboot' 'Rebooting in 5 seconds' && sleep 6 && systemctl reboot &" " " ))
+      (button :class "power-button" :onclick "notify-send 'Shutdown' 'Shutting down in 5 seconds' && sleep 6 && systemctl poweroff &" " " ))))
+
+; CLOCK
+(defvar reveal-time false)
+(defpoll time :interval "1s" :initial "{}" `date '+{"year": "%Y", "month": "%b", "weekday": "%a", "day": "%d", "hour": "%H", "minute": "%M"}'`)
+
+(defwidget clock-icon []
+  (box :class "clock-icon" " "))
+
+(defwidget clock [] 
+  (box :class "clock" 
+    (revealer-on-hover :var reveal-time :varname "reveal-time"
+      (label :class "time-reveal" :text "${time.weekday} ${time.day} ${time.month}")
+      (box :space-evenly false 
+        (label :text "${time.hour}:${time.minute}") 
+        (clock-icon)))))
+
+; BATTERY
+(defvar reveal-battery false)
+(deflisten battery-json :initial '{}' `tail -F states/battery.state`)
+
+(defwidget battery []
+  (box :class "battery ${replace(battery-json.status, ' ', '-')}"
+    (revealer-on-hover :var reveal-battery :varname "reveal-battery" :icon {battery-json.icon}
+      (label :class "battery-reveal" :text "${battery-json.status} | ${battery-json.capacity}%")
+      (label :text {battery-json.icon}))))
+ 
+; WIFI
+(defvar reveal-wifi false)
+(deflisten wifi-json :initial '{}' `tail -F states/wifi.state`)
+
+(defwidget wifi []
+  (box :class "wifi"
+    (revealer-on-hover :var reveal-wifi :varname "reveal-wifi" :icon {wifi-json.icon}
+      (label :class "wifi-reveal" :text {wifi-json.ssid != "" ? wifi-json.ssid : wifi-json.state})
+      (label :text {wifi-json.icon}))))
+      
+
+; BRIGHTNESS
+(defvar reveal-brightness false)
+(deflisten brightness-json :initial '{}' `tail -F states/brightness.state`)
+
+(defwidget brightness []
+  (box :class "brightness"
+    (revealer-on-hover :var reveal-brightness :varname "reveal-brightness" :icon {brightness-json.icon}
+      (scale :value {brightness-json.brightness == "null" ? 0 : brightness-json.brightness} 
+             :min 0 :max 101 
+             :onchange "em-brightness set {}" 
+             :flipped true)
+      (label :text {brightness-json.icon}))))
+
+; VOLUME
+(defvar reveal-volume false)
+(deflisten volume-json :initial '{}' `tail -F states/volume.state`)
+
+(defwidget volume []
+  (box :class "volume"
+    (revealer-on-hover :var reveal-volume :varname "reveal-volume" :icon {volume-json.icon}
+      (scale :value {volume-json.volume == "null" ? 0 : volume-json.volume} 
+             :min 0 :max 101 
+             :active {volume-json.icon != "婢 "} 
+             :onchange "em-volume set {}%" 
+             :flipped true)
+      (label :text {volume-json.icon}))))
+
+; WEATHER
+(defvar reveal-weather false)
+(defpoll weather-json :interval "5m" :initial "{}" `python3 scripts/weather.py`)
+
+(defwidget weather []
+  (box :class "weather ${weather-json.class}"
+    (revealer-on-hover :var reveal-weather :varname "reveal-weather" :icon {weather-json.icon}
+      (label :class "weather-reveal" :text "${weather-json.status} | ${weather-json.temperature}")
+      (label :text {weather-json.icon}))))                                                                
+   
+(defwidget right []
+  (box :class "right" :halign "end" :spacing 5 :space-evenly false 
+    (weather)
+    (volume)
+    (brightness)
+    (wifi)
+    (battery)
+    (clock)
+    (power-menu)))
+ 
+; WINDOWS
+(defwindow bar
+  :monitor 0
+  :geometry (geometry
+              :y "10px"
+              :width "99%"
+              :height "30px"
+              :anchor "top center")
+  :stacking "fg"
+  :exclusive true
+  (box (left)(center)(right)))

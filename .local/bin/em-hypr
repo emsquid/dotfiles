@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# BORDER COLORS
+colors=("7aa2f7" "f7768e" "9ece6a" "e0af68" "bb9af7" "7dcfff" "c0caf5")
+color="${colors[0]}"
+previouspid=-1
+
+getcolor() {
+    i=$((RANDOM % 7))
+
+    while [ "${colors[i]}" = "$color" ]; do
+        i=$((RANDOM % 7))
+    done
+
+    echo "${colors[i]}"
+}
+
+changecolor() {
+    hyprctl keyword "general:col.active_border" "rgba(""$color""ee)"
+}
+
+activewindowpid() {
+    hyprctl activewindow | grep pid | tr -d " " | cut -d : -f 2
+}
+
+# WORKSPACES
+logdir="$HOME/.config/eww/states"
+logfile="$logdir/workspaces.state"
+
+mkdir -p "$logdir"
+touch "$logfile"
+
+activeworkspacepid() {
+    hyprctl monitors -j | jq --raw-output .[0].activeWorkspace.id
+}
+
+log() {
+    if [ "$(wc -l "$logfile" | cut -d ' ' -f 1)" -ge 1000 ]; then
+        tail -1 "$logfile" > "$logfile"
+    fi
+
+    WORKSPACES=$(hyprctl workspaces -j | jq 'map({key: .id | tostring, value: .windows}) | from_entries')
+
+    seq 1 5 | jq --arg active "$(activeworkspacepid)" --argjson windows "${WORKSPACES}" --slurp -Mc 'map(tostring) | map({id: ., windows: ($windows[.]//0), active: (. == $active)})' >> "$logfile"
+}
+
+log
+
+socat -u "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" - | while read -r line; do
+    case $line in
+        activewindow\>\>*)
+            pid="$(activewindowpid)"
+            if [ "$pid" != "$previouspid" ]; then
+                previouspid="$pid"
+                color=$(getcolor)
+                changecolor
+            fi
+            ;;
+        workspace\>\>*)
+            log
+            ;;
+    esac
+done

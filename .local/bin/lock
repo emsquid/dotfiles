@@ -1,6 +1,0 @@
-#!/bin/bash
-
-swayidle -w timeout 30 'systemctl suspend' &
-swaylock
-
-kill $!
