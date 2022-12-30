@@ -10,17 +10,17 @@ height=110
 padding=10
 
 border-size=2
-border-color=#e0af68
-progress-color=over #e0af68
+border-color=#c0caf5
+progress-color=over #c0caf5
 border-radius=8
 
-default-timeout=5000
+default-timeout=4000
 
 [urgency=low]
 border-color=#9ece6a
 
 [urgency=normal]
-border-color=#e0af68
+border-color=#c0caf5
 
 [urgency=high]
 border-color=#f7768e

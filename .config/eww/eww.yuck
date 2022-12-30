@@ -127,7 +127,7 @@
     (revealer-on-hover :var reveal-volume :varname "reveal-volume" :icon {volume-json.icon}
       (scale :value {volume-json.volume == "null" ? 0 : volume-json.volume} 
              :min 0 :max 101 
-             :active {volume-json.icon != "婢 "} 
+             :active {volume-json.volume == "null"} 
              :onchange "em-volume set {}%" 
              :flipped true)
       (label :text {volume-json.icon}))))

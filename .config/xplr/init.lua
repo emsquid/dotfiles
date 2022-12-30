@@ -130,7 +130,7 @@ xplr.config.general.logs.error.style = { fg = "Red" }
 -- * format: nullable string
 -- * style: [Style](https://xplr.dev/en/style)
 xplr.config.general.table.header.cols = {
-    { format = " index", style = {} },
+    -- { format = " index", style = {} },
     { format = "╭─── path", style = {} },
     { format = "permissions", style = {} },
     { format = "size", style = {} },
@@ -154,10 +154,10 @@ xplr.config.general.table.header.height = 1
 -- * format: nullable string
 -- * style: [Style](https://xplr.dev/en/style)
 xplr.config.general.table.row.cols = {
-    {
-        format = "builtin.fmt_general_table_row_cols_0",
-        style = {},
-    },
+    -- {
+        -- format = "builtin.fmt_general_table_row_cols_0",
+        -- style = {},
+    -- },
     {
         format = "builtin.fmt_general_table_row_cols_1",
         style = {},
@@ -212,10 +212,10 @@ xplr.config.general.table.col_spacing = 1
 --
 -- Type: nullable list of [Constraint](https://xplr.dev/en/layouts#constraint)
 xplr.config.general.table.col_widths = {
-    { Percentage = 13 },
+    -- { Percentage = 13 },
     { Percentage = 50 },
-    { Percentage = 24 },
-    { Percentage = 13 },
+    { Percentage = 35 },
+    { Percentage = 15 },
     -- { Percentage = 20 },
 }
 

@@ -1,12 +1,13 @@
 configuration {
 	modi:                       "drun,run";
-    show-icons:                 false;
+    show-icons:                 true;
     display-drun:               " ";
     display-run:                " ";
     display-filebrowser:        " ";
     display-window:             " ";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c} · {t}";
+    terminal:                   "kitty";
 }
 
 /*****----- Global Properties -----*****/
