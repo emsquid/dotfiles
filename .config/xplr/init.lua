@@ -10,6 +10,10 @@ local xplr = xplr -- The globally exposed configuration to be overridden.
 version = '0.20.1'
 ---@diagnostic enable
 
+local style_module = require("style")
+local style = style_module.style
+local separator = style_module.separator
+
 -- ## Config ------------------------------------------------------------------
 --
 -- The xplr configuration, exposed via `xplr.config` Lua API contains the
@@ -826,6 +830,46 @@ xplr.config.node_types.special = {}
 --
 -- Type: [Layout](https://xplr.dev/en/layout)
 xplr.config.layouts.builtin.default = {
+    Horizontal = {
+        config = {
+            constraints = {
+                { Percentage = 70 },
+                { Percentage = 30 },
+            },
+        },
+        splits = {
+            {
+                Vertical = {
+                    config = {
+                        constraints = {
+                            { Length = 3 },
+                            { Min = 1 },
+                            { Length = 3 },
+                        },
+                    },
+                    splits = {
+                        "SortAndFilter",
+                        "Table",
+                        "InputAndLogs",
+                    },
+                },
+            },
+            {
+                Vertical = {
+                    config = {
+                        constraints = {
+                            { Percentage = 30 },
+                            { Percentage = 70 },
+                        },
+                    },
+                    splits = {
+                        "Selection",
+                        "HelpMenu",
+                    },
+                },
+            },
+        },
+    },
 }
 
 -- The layout without selection panel
@@ -993,7 +1037,7 @@ xplr.config.modes.builtin.default = {
                     "ClearSelection",
                 },
             },
-            ["ctrl-w"] = {
+            ["ctrl-s"] = {
                 help = "switch layout",
                 messages = {
                     { SwitchModeBuiltin = "switch_layout" },
@@ -2419,7 +2463,7 @@ end
 
 -- Renders the second column in the table
 xplr.fn.builtin.fmt_general_table_row_cols_1 = function(m)
-    local r = "\x1b[37m" .. m.tree .. m.prefix .. "\x1b[0m"
+    local r = style.fg.White(m.tree .. m.prefix) .. separator
 
     local function path_escape(path)
         local escaped = string.gsub(string.gsub(path, "\\", "\\\\"), "\n", "\\n")
@@ -2462,32 +2506,6 @@ end
 
 -- Renders the third column in the table
 xplr.fn.builtin.fmt_general_table_row_cols_2 = function(m)
-    local no_color = os.getenv("NO_COLOR")
-
-    local function green(x)
-        if no_color == nil then
-            return "\x1b[32m" .. x .. "\x1b[0m"
-        else
-            return x
-        end
-    end
-
-    local function yellow(x)
-        if no_color == nil then
-            return "\x1b[33m" .. x .. "\x1b[0m"
-        else
-            return x
-        end
-    end
-
-    local function red(x)
-        if no_color == nil then
-            return "\x1b[31m" .. x .. "\x1b[0m"
-        else
-            return x
-        end
-    end
-
     local function bit(x, color, cond)
         if cond then
             return color(x)
@@ -2500,46 +2518,46 @@ xplr.fn.builtin.fmt_general_table_row_cols_2 = function(m)
 
     local r = ""
 
-    r = r .. bit("r", green, p.user_read)
-    r = r .. bit("w", yellow, p.user_write)
+    r = r .. bit("r", style.fg.Green, p.user_read)
+    r = r .. bit("w", style.fg.Yellow, p.user_write)
 
     if p.user_execute == false and p.setuid == false then
-        r = r .. bit("-", red, p.user_execute)
+        r = r .. bit("-", style.fg.Red, p.user_execute)
     elseif p.user_execute == true and p.setuid == false then
-        r = r .. bit("x", red, p.user_execute)
+        r = r .. bit("x", style.fg.Red, p.user_execute)
     elseif p.user_execute == false and p.setuid == true then
-        r = r .. bit("S", red, p.user_execute)
+        r = r .. bit("S", style.fg.Red, p.user_execute)
     else
-        r = r .. bit("s", red, p.user_execute)
+        r = r .. bit("s", style.fg.Red, p.user_execute)
     end
 
-    r = r .. bit("r", green, p.group_read)
-    r = r .. bit("w", yellow, p.group_write)
+    r = r .. bit("r", style.fg.Green, p.group_read)
+    r = r .. bit("w", style.fg.Yellow, p.group_write)
 
     if p.group_execute == false and p.setuid == false then
-        r = r .. bit("-", red, p.group_execute)
+        r = r .. bit("-", style.fg.Red, p.group_execute)
     elseif p.group_execute == true and p.setuid == false then
-        r = r .. bit("x", red, p.group_execute)
+        r = r .. bit("x", style.fg.Red, p.group_execute)
     elseif p.group_execute == false and p.setuid == true then
-        r = r .. bit("S", red, p.group_execute)
+        r = r .. bit("S", style.fg.Red, p.group_execute)
     else
-        r = r .. bit("s", red, p.group_execute)
+        r = r .. bit("s", style.fg.Red, p.group_execute)
     end
 
-    r = r .. bit("r", green, p.other_read)
-    r = r .. bit("w", yellow, p.other_write)
+    r = r .. bit("r", style.fg.Green, p.other_read)
+    r = r .. bit("w", style.fg.Yellow, p.other_write)
 
     if p.other_execute == false and p.setuid == false then
-        r = r .. bit("-", red, p.other_execute)
+        r = r .. bit("-", style.fg.Red, p.other_execute)
     elseif p.other_execute == true and p.setuid == false then
-        r = r .. bit("x", red, p.other_execute)
+        r = r .. bit("x", style.fg.Red, p.other_execute)
     elseif p.other_execute == false and p.setuid == true then
-        r = r .. bit("T", red, p.other_execute)
+        r = r .. bit("T", style.fg.Red, p.other_execute)
     else
-        r = r .. bit("t", red, p.other_execute)
+        r = r .. bit("t", style.fg.Red, p.other_execute)
     end
 
-    return r
+    return style.add_modifiers.Bold(r)
 end
 
 -- Renders the fourth column in the table
@@ -2608,8 +2626,13 @@ end
 
 require("icons").setup()
 require("preview").setup({
+    as_default = true,
+    keybind = "P",
+    left_pane_width = { Percentage = 55 },
+    right_pane_width = { Percentage = 45 },
     highlight = {
         enable = true,
+        method = "xterm256",
         style = "tokyonight"
     },
 })
