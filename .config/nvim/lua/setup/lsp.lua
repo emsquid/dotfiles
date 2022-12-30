@@ -25,7 +25,7 @@ lsp.sumneko_lua.setup(config({
         Lua = {
             diagnostics = { globals = { 'vim' } },
             runtime = { version = "LuaJIT" },
-            workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+            -- workspace = { library = vim.api.nvim_get_runtime_file("", true) },
             telemetry = { enable = false },
         },
     },
@@ -34,7 +34,7 @@ lsp.sumneko_lua.setup(config({
 
 -- Rust
 lsp.rust_analyzer.setup(config({
-    cmd = { "rustup", "run", "stable", "rust-analyzer" },
+    cmd = { "rustup", "run", "nightly", "rust-analyzer" },
 }))
 
 -- LaTeX
