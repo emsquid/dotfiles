@@ -17,9 +17,9 @@
     (button :onclick "scripts/exec.sh rofi -show drun" "")))
 
 ; FILE MANAGER
- (defwidget file_manager []
+(defwidget file_manager []
   (box :class "file-manager"
-    (button :onclick "scripts/exec.sh kitty -T ranger -e ranger" "")))
+    (button :onclick "scripts/exec.sh kitty -T xplr -e xplr" "")))
  
 ; WORKSPACES
 (deflisten workspaces-json :initial "[]" "tail -F states/workspaces.state")
@@ -63,11 +63,11 @@
   (box :class "power-menu"
     (revealer-on-hover :var reveal-power-menu :varname "reveal-power-menu" :icon "襤"
       (box 
-        (button :class "lock-button" :onclick "${close-power-menu} && lock &" " ")
+        (button :class "lock-button" :onclick "${close-power-menu} && em-lock &" " ")
         (button :class "suspend-button" :onclick "${close-power-menu} && systemctl suspend &" "鈴 ")
         (button :class "logout-button" :onclick "hyprctl dispatch exit 0" " ")
-        (button :class "reboot-button" :onclick "notify-send 'Reboot' 'Rebooting in 5 seconds' && sleep 6 && systemctl reboot &" " " ))
-      (button :class "power-button" :onclick "notify-send 'Shutdown' 'Shutting down in 5 seconds' && sleep 6 && systemctl poweroff &" " " ))))
+        (button :class "reboot-button" :onclick "notify-send 'Reboot' 'Rebooting in 5 seconds' && sleep 5 && systemctl reboot &" " " ))
+      (button :class "power-button" :onclick "notify-send 'Shutdown' 'Shutting down in 5 seconds' && sleep 5 && systemctl poweroff &" " " ))))
 
 ; CLOCK
 (defvar reveal-time false)
@@ -136,7 +136,7 @@
 (defvar reveal-weather false)
 (defpoll weather-json :interval "5m" :initial "{}" `python3 scripts/weather.py`)
 
-(defwidget weather []
+(defwidget weather [] 
   (box :class "weather ${weather-json.class}"
     (revealer-on-hover :var reveal-weather :varname "reveal-weather" :icon {weather-json.icon}
       (label :class "weather-reveal" :text "${weather-json.status} | ${weather-json.temperature}")
@@ -153,13 +153,15 @@
     (power-menu)))
  
 ; WINDOWS
+(defvar border-color "#7aa2f7")
+
 (defwindow bar
   :monitor 0
   :geometry (geometry
               :y "10px"
               :width "99%"
-              :height "30px"
+              :height "34px"
               :anchor "top center")
   :stacking "fg"
   :exclusive true
-  (box (left)(center)(right)))
+  (box :style "border-radius: 8px; border: 2px solid ${border-color}; transition: border-color 0.2s linear;" (left)(center)(right)))

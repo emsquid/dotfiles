@@ -17,6 +17,7 @@ getcolor() {
 
 changecolor() {
     hyprctl keyword "general:col.active_border" "rgba(""$color""ee)"
+    eww update "border-color=""#$color"""
 }
 
 activewindowpid() {

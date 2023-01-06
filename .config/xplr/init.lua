@@ -4,6 +4,8 @@ package.path = home
     .. home
     .. "/.config/xplr/plugins/?.lua;"
     .. package.path
+package.path = os.getenv("LUA_PATH") .. ";" .. package.path
+package.cpath = os.getenv("LUA_CPATH") .. ";" .. package.cpath
 
 ---@diagnostic disable
 local xplr = xplr -- The globally exposed configuration to be overridden.
@@ -155,8 +157,8 @@ xplr.config.general.table.header.height = 1
 -- * style: [Style](https://xplr.dev/en/style)
 xplr.config.general.table.row.cols = {
     -- {
-        -- format = "builtin.fmt_general_table_row_cols_0",
-        -- style = {},
+    -- format = "builtin.fmt_general_table_row_cols_0",
+    -- style = {},
     -- },
     {
         format = "builtin.fmt_general_table_row_cols_1",
@@ -213,9 +215,9 @@ xplr.config.general.table.col_spacing = 1
 -- Type: nullable list of [Constraint](https://xplr.dev/en/layouts#constraint)
 xplr.config.general.table.col_widths = {
     -- { Percentage = 13 },
-    { Percentage = 50 },
-    { Percentage = 35 },
-    { Percentage = 15 },
+    { LengthLessThanLayoutWidth = 30 },
+    { Length = 18 },
+    { Length = 10 },
     -- { Percentage = 20 },
 }
 
@@ -2628,17 +2630,30 @@ require("icons").setup()
 require("preview").setup({
     as_default = true,
     keybind = "P",
-    left_pane_width = { Percentage = 55 },
-    right_pane_width = { Percentage = 45 },
-    highlight = {
+    left_pane_constraint = { Percentage = 55 },
+    right_pane_constraint = { Percentage = 45 },
+    text = {
         enable = true,
-        method = "xterm256",
-        style = "tokyonight"
+        highlight = {
+            enable = true,
+            method = "xterm256",
+            style = "tokyonight"
+        }
     },
+    image = {
+        enable = true,
+        method = "kitty"
+    },
+    directory = {
+        enable = true,
+        style = true,
+    }
 })
 
 return {
     on_load = {},
     on_directory_change = {},
     on_focus_change = {},
+    on_mode_switch = { { CallLuaSilently = "custom.preview.clear_image_preview" } },
+    on_layout_switch = { { CallLuaSilently = "custom.preview.clear_image_preview" } },
 }

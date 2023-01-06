@@ -4,7 +4,7 @@ local opts = { noremap = true, silent = true }
 map('n', '<c-s>', '<CMD>write<cr>', opts)
 map('n', '<c-q>', '<CMD>quit<cr>', opts)
 map('n', '<s-u>', '<CMD>redo<cr>', opts)
-map('n', 'gd', '<CMD>bdelete!<cr>', opts)
+-- map('n', 'gd', '<CMD>bdelete!<cr>', opts)
 map('n', 'gp', '<CMD>bprevious<cr>', opts)
 map('n', 'gn', '<CMD>bnext<cr>', opts)
 

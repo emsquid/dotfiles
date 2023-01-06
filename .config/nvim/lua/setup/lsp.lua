@@ -17,7 +17,19 @@ vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
 lsp.clangd.setup(config())
 
 -- Python
-lsp.pylsp.setup(config())
+lsp.pylsp.setup(config(
+    {
+        settings = {
+            pylsp = {
+                plugins = {
+                    pycodestyle = {
+                        ignore = { 'E501' },
+                    }
+                }
+            }
+        }
+    }
+))
 
 -- Lua
 lsp.sumneko_lua.setup(config({
@@ -33,9 +45,9 @@ lsp.sumneko_lua.setup(config({
 )
 
 -- Rust
-lsp.rust_analyzer.setup(config({
-    cmd = { "rustup", "run", "nightly", "rust-analyzer" },
-}))
+-- lsp.rust_analyzer.setup(config({
+    -- cmd = { "rustup", "run", "nightly", "rust-analyzer" },
+-- }))
 
 -- LaTeX
 lsp.texlab.setup(config())

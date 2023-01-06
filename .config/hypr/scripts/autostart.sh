@@ -14,4 +14,4 @@ mako &
 
 pkttyagent &
 
-swayidle -w timeout 120 'em-lock' before-sleep 'swaylock -f' & 
+swayidle -w timeout 120 'systemctl suspend' before-sleep 'swaylock -f' & 
