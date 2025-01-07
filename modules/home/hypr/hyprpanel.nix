@@ -104,7 +104,7 @@ in {
         menus.dashboard.shortcuts.left.shortcut4.tooltip = "Application Launcher";
         menus.dashboard.stats.enabled = false;
         menus.dashboard.directories.enabled = false;
-        scalingPriority = "both";
+        scalingPriority = "hyprland";
         theme.bar.location = cfg.settings.position;
         theme.bar.transparent = cfg.settings.transparent;
         theme.bar.floating = cfg.settings.floating;
