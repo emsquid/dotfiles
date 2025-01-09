@@ -51,6 +51,7 @@
       zsh.enable = true;
       starship.enable = true;
       packages = with pkgs; [
+        btop
         dconf
         git
         helix
