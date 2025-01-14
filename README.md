@@ -1,5 +1,5 @@
 # Dotfiles (NixOS)
-This repository contains my NixOS system configuration. It is made to be modular, and should evolve in the near future to better match my tastes.
+This repository contains my NixOS system configuration. It is made to be very modular, and should evolve in the near future to better match my tastes.
 
 ## Configuration
 The main part of my configuration resolves around these 3 files:
