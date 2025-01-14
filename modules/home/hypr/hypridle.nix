@@ -1,6 +1,8 @@
-{ lib, config, pkgs, ... }: let
+{ lib, config, pkgs, inputs, ... }: let
   cfg = config.homeModules.hypr.hypridle;
 in {
+  imports = [ inputs.wayland-pipewire-idle-inhibit.homeModules.default ];
+
   options.homeModules.hypr.hypridle = {
     enable = lib.mkEnableOption "Enable hypridle support";
     timeout = {
@@ -16,6 +18,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    services.wayland-pipewire-idle-inhibit.enable = true;
     services.hypridle = {
       enable = true;
       settings = {
