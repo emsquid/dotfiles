@@ -10,7 +10,6 @@ in {
       dbus.enable = true;
       gvfs.enable = true;
       libinput.enable = true;
-      power-profiles-daemon.enable = true;
       udisks2.enable = true;
       upower.enable = true;
       logind.extraConfig = "HandlePowerKey=ignore";

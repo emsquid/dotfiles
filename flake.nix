@@ -29,6 +29,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # FIXME
+    widevine.url = "github:epetousis/nixos-aarch64-widevine";
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
   };
 
@@ -36,7 +38,7 @@
     system = "aarch64-linux";
     host = "asahi";
     user = "emanuel";
-    pkgs = import nixpkgs { inherit system; };
+    # pkgs = import nixpkgs { inherit system; };
   in {
     nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
       specialArgs = { 
@@ -46,7 +48,7 @@
         inherit user;
       };  
       modules = [ 
-        { nixpkgs.overlays = [ inputs.hyprpanel.overlay ]; }
+        { nixpkgs.overlays = [ inputs.hyprpanel.overlay inputs.widevine.overlays.default ]; }
         ./hosts/${host}/nixos.nix 
       ];
     };

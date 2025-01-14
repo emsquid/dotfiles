@@ -14,7 +14,7 @@
     time-zone = "Europe/Paris";
     default-locale = "en_US.UTF-8";
 
-    editor = "helix";
+    editor = "hx";
 
     git = {
       user = "Emsquid";

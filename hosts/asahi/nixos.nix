@@ -16,6 +16,8 @@
     extraGroups = [ "wheel" ];
   };
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   nixosModules = {
     asahi = {
       enable = true;
@@ -41,10 +43,9 @@
       };
     };
 
-    nix = {
-      optimise-store = true;
-      collect-garbage = true;
-      generation-limit = 10;
+    management = {
+      power.enable = true;
+      storage.enable = true;
     };
 
     programs = {
@@ -86,8 +87,9 @@
 
   environment.variables = {
     EDITOR = config.var.editor;
+    MOZ_GMP_PATH = [ "${pkgs.widevine-cdm-lacros}/gmp-widevinecdm/system-installed" ];
   };
-  
+
   # TODO
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {

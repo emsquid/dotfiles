@@ -15,8 +15,10 @@
         gcc
         gnumake
         cmake
+        clang-tools
         flex
         bison
+        swi-prolog
       ];
 
       shellHook = "exec zsh";
