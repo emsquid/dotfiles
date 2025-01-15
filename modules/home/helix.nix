@@ -38,8 +38,16 @@ in {
         };
       };
 
-      languages.language-server.tinymist.config = {
-        exportPdf = "onSave";
+      languages = {
+        language = [
+          {
+            name = "typst";
+            formatter.command = "typstyle";
+          }
+        ];
+        language-server.tinymist.config = {
+          exportPdf = "onSave";
+        };
       };
     };
 
