@@ -61,8 +61,6 @@
         wget
         xdg-utils
         zip
-        typst
-        tinymist
       ];
     };
 
@@ -88,6 +86,7 @@
   environment.variables = {
     EDITOR = config.var.editor;
     MOZ_GMP_PATH = [ "${pkgs.widevine-cdm-lacros}/gmp-widevinecdm/system-installed" ];
+    DEVSHELLS = "/home/emanuel/.config/nixos/devshells";
   };
 
   # TODO
