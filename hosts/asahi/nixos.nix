@@ -22,7 +22,6 @@
     asahi = {
       enable = true;
       swap-mods = true;
-      battery-threshold.enable = true;
       firmware-directory = ./firmware;
     };
 

@@ -39,14 +39,9 @@ in {
       };
 
       languages = {
-        language = [
-          {
-            name = "typst";
-            formatter.command = "typstyle";
-          }
-        ];
         language-server.tinymist.config = {
           exportPdf = "onSave";
+          formatterMode = "typstyle";
         };
       };
     };

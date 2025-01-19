@@ -7,6 +7,12 @@ in {
 
   config = lib.mkIf cfg.enable {
     powerManagement.enable = true;
-    services.tlp.enable = true;
+    services.tlp = {
+      enable = true;
+      settings = {
+        START_CHARGE_THRESH_BAT0 = 40; 
+        STOP_CHARGE_THRESH_BAT0 = 80;
+      };
+    };
   };
 }

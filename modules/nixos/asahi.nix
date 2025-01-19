@@ -15,21 +15,21 @@ in {
 
     swap-mods = lib.mkEnableOption "Swap option/command and fn/ctrl";
 
-    battery-threshold = {
-      enable = lib.mkEnableOption "Enable battery threshold";
+    # battery-threshold = {
+    #   enable = lib.mkEnableOption "Enable battery threshold";
 
-      start = lib.mkOption { 
-        type = lib.types.ints.between 0 100; 
-        default = 70; 
-        description = "When to start charging";
-      };
+    #   start = lib.mkOption { 
+    #     type = lib.types.ints.between 0 100; 
+    #     default = 70; 
+    #     description = "When to start charging";
+    #   };
 
-      end = lib.mkOption { 
-        type = lib.types.ints.between 0 100; 
-        default = 80; 
-        description = "When to end charging";
-      };
-    }; 
+    #   end = lib.mkOption { 
+    #     type = lib.types.ints.between 0 100; 
+    #     default = 80; 
+    #     description = "When to end charging";
+    #   };
+    # }; 
   };
 
   config = lib.mkIf cfg.enable {
@@ -58,8 +58,8 @@ in {
       ];  
     };  
 
-    services.udev.extraRules = lib.mkIf cfg.battery-threshold.enable ''
-      KERNEL=="macsmc-battery", SUBSYSTEM=="power_supply", ATTR{charge_control_end_threshold}="${toString cfg.battery-threshold.end}", ATTR{charge_control_start_threshold}="${toString cfg.battery-threshold.start}"
-    '';
+    # services.udev.extraRules = lib.mkIf cfg.battery-threshold.enable ''
+    #   KERNEL=="macsmc-battery", SUBSYSTEM=="power_supply", ATTR{charge_control_end_threshold}="${toString cfg.battery-threshold.end}", ATTR{charge_control_start_threshold}="${toString cfg.battery-threshold.start}"
+    # '';
   };
 }
