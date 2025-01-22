@@ -32,7 +32,7 @@
     # FIXME
     widevine.url = "github:epetousis/nixos-aarch64-widevine";
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
-    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
+    apple-silicon-support.url = "github:emsquid/nixos-apple-silicon";
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @ inputs: let
