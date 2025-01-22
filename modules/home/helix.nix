@@ -42,6 +42,7 @@ in {
         language-server.tinymist.config = {
           exportPdf = "onSave";
           formatterMode = "typstyle";
+          formatterPrintWidth = 80;
         };
       };
     };

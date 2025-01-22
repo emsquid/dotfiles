@@ -91,6 +91,12 @@ in {
           disable_splash_rendering = true;
         };
 
+        windowrulev2 = [
+          "float, class:(firefox), title:(Picture-in-Picture)" 
+          "pin, class:(firefox), title:(Picture-in-Picture)" 
+          "size 640 360, class:(firefox), title:(Picture-in-Picture)" 
+        ];
+
         bind = [
           "$mod, T, exec, wezterm"
           "$mod, F, exec, firefox"
