@@ -71,7 +71,10 @@
         monospace = config.var.theme.font;
         sans-serif = config.var.theme.font;
         serif = config.var.theme.font;
-        packages = [ pkgs.gyre-fonts ];
+        packages = with pkgs; [
+          gyre-fonts
+          stix-two
+        ];
       };
 
       cursor = {
