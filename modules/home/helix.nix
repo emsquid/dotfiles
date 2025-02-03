@@ -40,7 +40,7 @@ in {
 
       languages = {
         language-server.tinymist.config = {
-          exportPdf = "onSave";
+          # exportPdf = "onSave";
           formatterMode = "typstyle";
           formatterPrintWidth = 80;
         };
