@@ -39,6 +39,9 @@ in {
       };
 
       languages = {
+        language.python = {
+          formatter = { command = "ruff"; args = ["format" "--line-length" "88" "-"]; };
+        };
         language-server.tinymist.config = {
           # exportPdf = "onSave";
           formatterMode = "typstyle";
