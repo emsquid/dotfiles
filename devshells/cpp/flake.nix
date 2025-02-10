@@ -9,11 +9,10 @@
   in {
     devShells.${system}.default = pkgs.mkShell {
       packages = with pkgs; [
-        (python3.withPackages(python-pkgs: [
-          python-pkgs.python-lsp-server
-          python-pkgs.black
-          python-pkgs.numpy
-        ]))
+        gcc
+        gnumake
+        cmake
+        clang-tools
       ];
 
       shellHook = "exec zsh";
