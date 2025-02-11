@@ -41,7 +41,7 @@ in {
       languages = {
         language = [{
           name = "python";
-          formatter = { command = "ruff"; args = ["format" "--line-length" "80" "-"]; };
+          formatter = { command = "black"; };
         }];
         language-server.tinymist.config = {
           # exportPdf = "onSave";
