@@ -41,7 +41,7 @@ in {
       languages = {
         language = [{
           name = "python";
-          formatter = { command = "black"; };
+          formatter = { command = "black"; args = ["-" "--quiet"]; };
         }];
         language-server.tinymist.config = {
           # exportPdf = "onSave";

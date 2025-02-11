@@ -14,6 +14,7 @@
           python-pkgs.black
           python-pkgs.numpy
           python-pkgs.pandas
+          python-pkgs.matplotlib
         ]))
       ];
 
