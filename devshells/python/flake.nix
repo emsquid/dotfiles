@@ -12,9 +12,10 @@
         (python3.withPackages(python-pkgs: [
           python-pkgs.python-lsp-server
           python-pkgs.black
+          python-pkgs.matplotlib
           python-pkgs.numpy
           python-pkgs.pandas
-          python-pkgs.matplotlib
+          python-pkgs.pytorch
         ]))
       ];
 
