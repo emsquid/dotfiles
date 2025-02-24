@@ -1,4 +1,4 @@
-{ lib, config, ... }: let
+{ lib, config, pkgs, inputs, ... }: let
   cfg = config.homeModules.firefox;
 in {
   options.homeModules.firefox = {
@@ -11,6 +11,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      inputs.zen-browser.packages."${system}".twilight
+    ];
+  
     programs.firefox = {
       enable = true;
       policies = {
