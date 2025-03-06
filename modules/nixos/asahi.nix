@@ -39,7 +39,7 @@ in {
         useExperimentalGPUDriver = true;
         peripheralFirmwareDirectory = cfg.firmware-directory;
       };
-      graphics.enable = true;
+      # graphics.enable = true;
     };
 
     environment.systemPackages = with pkgs; [
