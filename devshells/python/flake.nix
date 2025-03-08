@@ -11,11 +11,13 @@
       packages = with pkgs; [
         (python3.withPackages(python-pkgs: [
           python-pkgs.python-lsp-server
+          python-pkgs.pyflakes
           python-pkgs.black
           python-pkgs.matplotlib
           python-pkgs.numpy
           python-pkgs.pandas
           python-pkgs.pytorch
+          python-pkgs.scikit-learn
         ]))
       ];
 
