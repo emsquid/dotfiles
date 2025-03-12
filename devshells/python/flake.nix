@@ -17,6 +17,7 @@
           python-pkgs.numpy
           python-pkgs.pandas
           python-pkgs.pytorch
+          python-pkgs.torchvision
           python-pkgs.scikit-learn
         ]))
       ];
