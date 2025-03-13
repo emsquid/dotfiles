@@ -19,6 +19,7 @@
           python-pkgs.pytorch
           python-pkgs.torchvision
           python-pkgs.scikit-learn
+          python-pkgs.tqdm
         ]))
       ];
 
