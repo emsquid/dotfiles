@@ -19,7 +19,6 @@ in {
         inherit host;
         inherit user;
       };
-      # useGlobalPkgs = true;
       useUserPackages = true;
       users.${user} = cfg.path;
     };
