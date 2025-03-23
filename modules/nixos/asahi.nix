@@ -44,7 +44,6 @@ in {
 
     environment.systemPackages = with pkgs; [
       mesa
-      mesa.drivers
     ];
 
     boot = {

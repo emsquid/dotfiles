@@ -16,6 +16,7 @@
   cfg = config.homeModules.hypr.hyprpanel;
 in {
   imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
+  # nixpkgs.overlays = [ inputs.hyprpanel.overlay ]; 
 
   options.homeModules.hypr.hyprpanel = {
     enable = lib.mkEnableOption "Enable hyprpanel";

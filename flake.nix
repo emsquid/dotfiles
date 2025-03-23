@@ -49,7 +49,6 @@
         inherit user;
       };  
       modules = [ 
-        { nixpkgs.overlays = [ inputs.hyprpanel.overlay inputs.widevine.overlays.default ]; }
         ./hosts/${host}/nixos.nix 
       ];
     };

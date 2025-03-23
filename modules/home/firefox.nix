@@ -19,6 +19,11 @@ in {
         DisablePocket = true;
         Extensions.Install = map (name: "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi") cfg.extensions;      
       };
+      profiles = {
+        Emanuel = {};
+      };
     };
+
+    stylix.targets.firefox.profileNames = [ "Emanuel" ];
   };
 }

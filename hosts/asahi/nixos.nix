@@ -1,4 +1,4 @@
-{ config, pkgs, host, user, ... }:
+{ config, pkgs, inputs, host, user, ... }:
 
 {
   imports = [
@@ -7,6 +7,8 @@
 
     ../../modules/nixos
   ];
+
+  nixpkgs.overlays = [ inputs.widevine.overlays.default ]; 
 
   networking.hostName = host;
 
