@@ -39,7 +39,6 @@
     system = "aarch64-linux";
     host = "asahi";
     user = "emanuel";
-    # pkgs = import nixpkgs { inherit system; };
   in {
     nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
       specialArgs = { 
@@ -49,6 +48,9 @@
         inherit user;
       };  
       modules = [ 
+        {
+          nixpkgs.overlays = [ inputs.widevine.overlays.default ];
+        }
         ./hosts/${host}/nixos.nix 
       ];
     };

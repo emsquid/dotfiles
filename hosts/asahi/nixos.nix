@@ -91,6 +91,7 @@
     EDITOR = config.var.editor;
     MOZ_GMP_PATH = [ "${pkgs.widevine-cdm-lacros}/gmp-widevinecdm/system-installed" ];
     DEVSHELLS = "/home/emanuel/.config/nixos/devshells";
+    NIXOS_OZONE_WL = "1";
   };
 
   # TODO
