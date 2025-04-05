@@ -14,7 +14,7 @@
         tinymist
       ];
 
-      shellHook = "exec zsh";
+      shellHook = "exec zsh; unset SOURCE_DATE_EPOCH";
     };
   };
 }
