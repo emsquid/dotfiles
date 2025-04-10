@@ -73,17 +73,17 @@ in {
       overlay.enable = true;
       overwrite.enable = true;
 
-      layout = {
-        "bar.layouts" = {
-          "0" = {
-            left = [ "dashboard" "workspaces" "windowtitle" ];
-            middle = [ "media" ];
-            right = [ "systray" "bluetooth" "network" "volume" "battery" "clock" "notifications" ];
+
+      settings = {
+        layout = {
+          "bar.layouts" = {
+            "0" = {
+              left = [ "dashboard" "workspaces" "windowtitle" ];
+              middle = [ "media" ];
+              right = [ "systray" "bluetooth" "network" "volume" "battery" "clock" "notifications" ];
+            };
           };
         };
-      };
-
-     settings = {
         bar.clock.format = "%d %b %H:%M";
         # bar.launcher.icon = "";
         bar.launcher.icon = "";
