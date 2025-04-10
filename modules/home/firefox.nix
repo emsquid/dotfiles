@@ -20,7 +20,17 @@ in {
         Extensions.Install = map (name: "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi") cfg.extensions;      
       };
       profiles = {
-        Emanuel = {};
+        Emanuel = {
+        settings = {
+          "media.gmp-widevinecdm.version" = "system-installed";
+          "media.gmp-widevinecdm.visible" = true;
+          "media.gmp-widevinecdm.enabled" = true;
+          "media.gmp-widevinecdm.autoupdate" = false;
+
+          "media.eme.enabled" = true;
+          "media.eme.encrypted-media-encryption-scheme.enabled" = true;
+          };
+        };
       };
     };
 
