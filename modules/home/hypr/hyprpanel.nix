@@ -84,6 +84,9 @@ in {
             };
           };
         };
+      };
+    
+      override = {
         bar.clock.format = "%d %b %H:%M";
         # bar.launcher.icon = "";
         bar.launcher.icon = "";
@@ -135,9 +138,7 @@ in {
         theme.osd.radius = "${toString cfg.settings.rounding}px";
         theme.osd.border.size = "${toString (cfg.settings.border-size + 0.5)}px";
         wallpaper.enable = false;
-      };
-    
-      override = {
+
         theme.bar.menus.menu.notifications.scrollbar.color = "#${blue}";
         theme.bar.menus.menu.notifications.pager.label = "#${foreground}";
         theme.bar.menus.menu.notifications.pager.button = "#${blue}";
