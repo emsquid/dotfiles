@@ -10,7 +10,6 @@ in {
       enable = true;
 
       settings = {
-        theme = "default";
         enable_notify = false;
 
         device = {

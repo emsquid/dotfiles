@@ -1,4 +1,11 @@
-{ config, pkgs, inputs, host, user, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  host,
+  user,
+  ...
+}:
 
 {
   imports = [
@@ -8,7 +15,7 @@
     ../../modules/nixos
   ];
 
-  nixpkgs.overlays = [ inputs.widevine.overlays.default ]; 
+  nixpkgs.overlays = [ inputs.widevine.overlays.default ];
 
   networking.hostName = host;
 
@@ -18,7 +25,10 @@
     extraGroups = [ "wheel" ];
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   nixosModules = {
     asahi = {
@@ -69,19 +79,20 @@
       enable = true;
       themes.${config.var.theme.name}.enable = true;
 
-      fonts =  {
+      fonts = {
         monospace = config.var.theme.font;
         sans-serif = config.var.theme.font;
         serif = config.var.theme.font;
         packages = with pkgs; [
           gyre-fonts
           stix-two
+          source-sans
         ];
       };
 
       cursor = {
         package = pkgs.adwaita-icon-theme;
-        name = "Adwaita";      
+        name = "Adwaita";
         size = 24;
       };
     };

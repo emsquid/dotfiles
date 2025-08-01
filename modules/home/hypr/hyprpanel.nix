@@ -1,4 +1,10 @@
-{ lib, config, inputs, ... }: let
+{
+  lib,
+  config,
+  inputs,
+  ...
+}:
+let
   background = config.lib.stylix.colors.base00;
   background-alt = config.lib.stylix.colors.base01;
   darkgrey = config.lib.stylix.colors.base02;
@@ -14,24 +20,27 @@
   brown = config.lib.stylix.colors.base0F;
 
   cfg = config.homeModules.hypr.hyprpanel;
-in {
-  imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
-  # nixpkgs.overlays = [ inputs.hyprpanel.overlay ]; 
-
+in
+{
   options.homeModules.hypr.hyprpanel = {
     enable = lib.mkEnableOption "Enable hyprpanel";
     settings = {
       floating = lib.mkEnableOption "Make the bar floating";
       transparent = lib.mkEnableOption "Make the bar transparant";
       position = lib.mkOption {
-        type = lib.types.enum [ "top" "right" "bottom" "left" ];
+        type = lib.types.enum [
+          "top"
+          "right"
+          "bottom"
+          "left"
+        ];
         default = "top";
         description = "Bar position";
       };
-      font = lib.mkOption { 
-        type = lib.types.str;  
+      font = lib.mkOption {
+        type = lib.types.str;
         default = "DejaVu Sans";
-        description = "Font name"; 
+        description = "Font name";
       };
       font-size = lib.mkOption {
         type = lib.types.either lib.types.int lib.types.float;
@@ -69,24 +78,28 @@ in {
   config = lib.mkIf cfg.enable {
     programs.hyprpanel = {
       enable = true;
-      hyprland.enable = true;
-      overlay.enable = true;
-      overwrite.enable = true;
-
 
       settings = {
-        layout = {
-          "bar.layouts" = {
-            "0" = {
-              left = [ "dashboard" "workspaces" "windowtitle" ];
-              middle = [ "media" ];
-              right = [ "systray" "bluetooth" "network" "volume" "battery" "clock" "notifications" ];
-            };
+        bar.layouts = {
+          "*" = {
+            left = [
+              "dashboard"
+              "workspaces"
+              "windowtitle"
+            ];
+            middle = [ "media" ];
+            right = [
+              "systray"
+              "bluetooth"
+              "network"
+              "volume"
+              "battery"
+              "clock"
+              "notifications"
+            ];
           };
         };
-      };
-    
-      override = {
+
         bar.clock.format = "%d %b %H:%M";
         # bar.launcher.icon = "";
         bar.launcher.icon = "";
@@ -113,7 +126,12 @@ in {
         theme.bar.transparent = cfg.settings.transparent;
         theme.bar.floating = cfg.settings.floating;
         theme.bar.border.location = "full";
-        theme.bar.border.width = "${if cfg.settings.floating && !cfg.settings.transparent then toString (cfg.settings.border-size + 0.5) else toString 0}px";
+        theme.bar.border.width = "${
+          if cfg.settings.floating && !cfg.settings.transparent then
+            toString (cfg.settings.border-size + 0.5)
+          else
+            toString 0
+        }px";
         theme.bar.border_radius = "${toString cfg.settings.rounding}px";
         theme.bar.margin_sides = "${toString cfg.settings.gaps-out}px";
         theme.bar.margin_bottom = "0px";
@@ -126,7 +144,12 @@ in {
         theme.bar.buttons.padding_y = "0em";
         theme.bar.buttons.borderSize = "${toString (cfg.settings.border-size + 0.5)}px";
         theme.bar.buttons.enableBorders = cfg.settings.transparent;
-        theme.bar.buttons.y_margins = "${if cfg.settings.floating && cfg.settings.transparent then toString 0 else toString cfg.settings.gaps-in}px";
+        theme.bar.buttons.y_margins = "${
+          if cfg.settings.floating && cfg.settings.transparent then
+            toString 0
+          else
+            toString cfg.settings.gaps-in
+        }px";
         theme.bar.menus.border.size = "${toString (cfg.settings.border-size + 0.5)}px";
         theme.bar.menus.menu.dashboard.profile.radius = "${toString cfg.settings.rounding}px";
         theme.font.name = cfg.settings.font;

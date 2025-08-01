@@ -1,4 +1,10 @@
-{ lib, config, pkgs, ... }: let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
   fontType = lib.types.submodule {
     options = {
       package = lib.mkOption {
@@ -14,7 +20,8 @@
   };
 
   cfg = config.nixosModules.stylix.fonts;
-in {
+in
+{
   options.nixosModules.stylix.fonts = {
     serif = lib.mkOption {
       type = fontType;
@@ -80,7 +87,7 @@ in {
 
     packages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = [];
+      default = [ ];
       description = "A list of all the extra font packages that will be installed";
     };
   };

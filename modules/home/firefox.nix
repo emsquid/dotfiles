@@ -1,11 +1,13 @@
-{ lib, config, ... }: let
+{ lib, config, ... }:
+let
   cfg = config.homeModules.firefox;
-in {
+in
+{
   options.homeModules.firefox = {
     enable = lib.mkEnableOption "Enable firefox";
     extensions = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
       description = "List of firefox extensions to install";
     };
   };
@@ -17,18 +19,20 @@ in {
         DisableTelemetry = true;
         DisableFirefoxStudies = true;
         DisablePocket = true;
-        Extensions.Install = map (name: "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi") cfg.extensions;      
+        Extensions.Install = map (
+          name: "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi"
+        ) cfg.extensions;
       };
       profiles = {
         Emanuel = {
-        settings = {
-          "media.gmp-widevinecdm.version" = "system-installed";
-          "media.gmp-widevinecdm.visible" = true;
-          "media.gmp-widevinecdm.enabled" = true;
-          "media.gmp-widevinecdm.autoupdate" = false;
+          settings = {
+            "media.gmp-widevinecdm.version" = "system-installed";
+            "media.gmp-widevinecdm.visible" = true;
+            "media.gmp-widevinecdm.enabled" = true;
+            "media.gmp-widevinecdm.autoupdate" = false;
 
-          "media.eme.enabled" = true;
-          "media.eme.encrypted-media-encryption-scheme.enabled" = true;
+            "media.eme.enabled" = true;
+            "media.eme.encrypted-media-encryption-scheme.enabled" = true;
           };
         };
       };

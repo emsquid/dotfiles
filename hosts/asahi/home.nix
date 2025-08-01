@@ -63,7 +63,7 @@
       };
     };
 
-    spotify.enable = true;
+    stremio.enable = true;
     wezterm.enable = true;
     
     wofi = {

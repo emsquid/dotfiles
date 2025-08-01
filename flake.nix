@@ -19,40 +19,44 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  
     wezterm = {
       url = "github:wez/wezterm/main?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    apple-silicon-support.url = "github:nix-community/nixos-apple-silicon";
+
     # FIXME
     widevine.url = "github:epetousis/nixos-aarch64-widevine";
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
-    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs: let
-    system = "aarch64-linux";
-    host = "asahi";
-    user = "emanuel";
-  in {
-    nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
-      specialArgs = { 
-        inherit inputs; 
-        inherit system;
-        inherit host;
-        inherit user;
-      };  
-      modules = [ 
-        {
-          nixpkgs.overlays = [ inputs.widevine.overlays.default ];
-        }
-        ./hosts/${host}/nixos.nix 
-      ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      system = "aarch64-linux";
+      host = "asahi";
+      user = "emanuel";
+    in
+    {
+      nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          inherit host;
+          inherit user;
+        };
+        modules = [
+          {
+            nixpkgs.overlays = [ inputs.widevine.overlays.default ];
+          }
+          ./hosts/${host}/nixos.nix
+        ];
+      };
     };
-  };
 }
