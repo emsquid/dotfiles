@@ -1,13 +1,21 @@
-{ lib, config, pkgs, inputs, ... }: let
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+let
   cfg = config.homeModules.hypr.hyprland;
-in {
+in
+{
   options.homeModules.hypr.hyprland = {
     enable = lib.mkEnableOption "Enable hyprland";
     settings = {
-      keyboard-layout = lib.mkOption { 
-        type = lib.types.str;  
+      keyboard-layout = lib.mkOption {
+        type = lib.types.str;
         default = "us";
-        description = "Keyboard layout"; 
+        description = "Keyboard layout";
       };
       border-size = lib.mkOption {
         type = lib.types.either lib.types.int lib.types.float;
@@ -51,12 +59,12 @@ in {
       settings = {
         "$mod" = "SUPER";
 
-        exec-once = [ 
-          "dbus-update-activation-environment --systemd --all" 
+        exec-once = [
+          "dbus-update-activation-environment --systemd --all"
         ];
-      
-        monitor = [ ",prefered,auto,1.25" ]; 
-        env = [];
+
+        monitor = [ ",prefered,auto,1.25" ];
+        env = [ ];
 
         general = {
           gaps_in = cfg.settings.gaps-in;
@@ -84,7 +92,9 @@ in {
           preserve_split = true;
         };
 
-        gestures = { workspace_swipe = true; };
+        gestures = {
+          workspace_swipe = true;
+        };
 
         misc = {
           disable_hyprland_logo = true;
@@ -92,9 +102,9 @@ in {
         };
 
         windowrulev2 = [
-          "float, class:(firefox), title:(Picture-in-Picture)" 
-          "pin, class:(firefox), title:(Picture-in-Picture)" 
-          "size 640 360, class:(firefox), title:(Picture-in-Picture)" 
+          "float, class:(firefox), title:(Picture-in-Picture)"
+          "pin, class:(firefox), title:(Picture-in-Picture)"
+          "size 640 360, class:(firefox), title:(Picture-in-Picture)"
         ];
 
         bind = [
@@ -103,10 +113,13 @@ in {
           "$mod, Space, exec, wofi"
           "$mod, Q, killactive"
           "$mod, Escape, exit"
-        ] ++ (builtins.concatLists (builtins.genList (i: [
-          "$mod, code:1${toString i}, workspace, ${toString (i + 1)}"
-          "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString (i + 1)}"
-        ]) 9));
+        ]
+        ++ (builtins.concatLists (
+          builtins.genList (i: [
+            "$mod, code:1${toString i}, workspace, ${toString (i + 1)}"
+            "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString (i + 1)}"
+          ]) 9
+        ));
 
         bindm = [
           "$mod, mouse:272, movewindow"

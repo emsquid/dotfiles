@@ -19,6 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     wezterm = {
       url = "github:wez/wezterm/main?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,6 +32,10 @@
     apple-silicon-support.url = "github:nix-community/nixos-apple-silicon";
 
     # FIXME
+    hyprlock = {
+      url = "github:emsquid/hyprlock";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     widevine.url = "github:epetousis/nixos-aarch64-widevine";
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
   };

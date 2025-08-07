@@ -112,6 +112,7 @@
         return polkit.Result.YES;
     });
   '';
+  security.pam.services.swaylock = {};
 
   system.stateVersion = "25.05";
 }

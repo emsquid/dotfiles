@@ -25,6 +25,10 @@
       theme = config.var.theme.name;
     };
 
+    niri = {
+      enable = true;
+    };
+
     hypr = {
       hypridle.enable = true;
       hyprlock.enable = true;

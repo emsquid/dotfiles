@@ -3,6 +3,7 @@
     ./firefox.nix
     ./git.nix
     ./helix.nix
+    ./niri.nix
     ./spotify.nix
     ./stremio.nix
     ./wezterm.nix

@@ -24,7 +24,8 @@ in {
       settings = {
         general = {
           ignore_dbus_inhibit = false;
-          lock_cmd = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+          # lock_cmd = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+          lock_cmd = "pidof swaylock || ${pkgs.swaylock}/bin/swaylock";
           before_sleep_cmd = "loginctl lock-session";
           after_sleep_cmd = "hyprctl dispatch dpms on";
         };
@@ -32,7 +33,8 @@ in {
         listener = [
           {
             timeout = cfg.timeout.lock;
-            on-timeout = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+            # on-timeout = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+            on-timeout = "pidof swaylock || ${pkgs.swaylock}/bin/swaylock";
           }
           {
             timeout = cfg.timeout.sleep;
