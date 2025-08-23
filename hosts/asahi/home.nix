@@ -11,7 +11,7 @@
   homeModules = {
     firefox = {
       enable = true;
-      extensions = [ "bitwarden-password-manager" "darkreader" "ublock-origin" ];
+      extensions = [ "bitwarden-password-manager" "ublock-origin" ];
     };
 
     git = {
@@ -33,6 +33,7 @@
       hypridle.enable = true;
       hyprlock.enable = true;
       hyprpaper.enable = true;
+      hyprsunset.enable = true;
 
       hyprland = {
         enable = true;

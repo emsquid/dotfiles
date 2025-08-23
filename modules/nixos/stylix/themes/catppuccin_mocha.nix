@@ -10,7 +10,7 @@ in {
       polarity = "dark";
       image = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/orangci/walls-catppuccin-mocha/master/beach-path.jpg";
-        sha256 = "sha256-iSUNffnzq3eI9qKUnSSEGOvXZugdbTURS0rcGbKa+R4=";
+        sha256 = "sha256-igp4YcJdzsEFduLHHe7EgQ6SFegWbsSaYR9TXsOmUrw=";
       };
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     };

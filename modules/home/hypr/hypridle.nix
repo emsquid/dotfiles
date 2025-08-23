@@ -1,6 +1,14 @@
-{ lib, config, pkgs, inputs, ... }: let
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+let
   cfg = config.homeModules.hypr.hypridle;
-in {
+in
+{
   imports = [ inputs.wayland-pipewire-idle-inhibit.homeModules.default ];
 
   options.homeModules.hypr.hypridle = {

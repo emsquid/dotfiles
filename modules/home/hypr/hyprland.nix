@@ -105,11 +105,15 @@ in
           "float, class:(firefox), title:(Picture-in-Picture)"
           "pin, class:(firefox), title:(Picture-in-Picture)"
           "size 640 360, class:(firefox), title:(Picture-in-Picture)"
+          "float, class:(librewolf), title:(Picture-in-Picture)"
+          "pin, class:(librewolf), title:(Picture-in-Picture)"
+          "size 640 360, class:(librewolf), title:(Picture-in-Picture)"
         ];
 
         bind = [
           "$mod, T, exec, wezterm"
-          "$mod, F, exec, firefox"
+          # "$mod, F, exec, firefox"
+          "$mod, F, exec, librewolf"
           "$mod, Space, exec, wofi"
           "$mod, Q, killactive"
           "$mod, Escape, exit"

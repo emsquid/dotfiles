@@ -4,7 +4,7 @@ let
 in
 {
   options.homeModules.firefox = {
-    enable = lib.mkEnableOption "Enable firefox";
+    enable = lib.mkEnableOption "Enable firefox/librewolf";
     extensions = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
@@ -13,7 +13,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.firefox = {
+    programs.librewolf = {
       enable = true;
       policies = {
         DisableTelemetry = true;
@@ -26,6 +26,13 @@ in
       profiles = {
         Emanuel = {
           settings = {
+            "webgl.disabled" = false;
+            "privacy.resistFingerprinting" = false;
+            "privacy.clearOnShutdown.history" = false;
+            "privacy.clearOnShutdown.cookies" = false;
+            "network.cookie.lifetimePolicy" = 0;
+            "cookiebanners.service.mode" = 2;
+
             "media.gmp-widevinecdm.version" = "system-installed";
             "media.gmp-widevinecdm.visible" = true;
             "media.gmp-widevinecdm.enabled" = true;
@@ -38,6 +45,6 @@ in
       };
     };
 
-    stylix.targets.firefox.profileNames = [ "Emanuel" ];
+    stylix.targets.librewolf.profileNames = [ "Emanuel" ];
   };
 }
